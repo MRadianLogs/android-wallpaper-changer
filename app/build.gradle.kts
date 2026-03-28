@@ -1,11 +1,11 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
     namespace = "com.example.android_wallpaper_changer"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.android_wallpaper_changer"
@@ -30,23 +30,19 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+
     buildFeatures {
         compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
     }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    compileSdkMinor = 1
 }
 
 dependencies {
@@ -66,4 +62,23 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // (Java only)
+    implementation(libs.androidx.work.runtime)
+
+    // Kotlin + coroutines
+    implementation(libs.androidx.work.runtime.ktx)
+
+    // optional - RxJava2 support
+    implementation(libs.androidx.work.rxjava2)
+
+    // optional - GCMNetworkManager support
+    implementation(libs.androidx.work.gcm)
+
+    // optional - Test helpers
+    androidTestImplementation(libs.androidx.work.testing)
+
+    // optional - Multiprocess support
+    implementation(libs.androidx.work.multiprocess)
+
 }
